@@ -35,22 +35,19 @@ namespace SpaceDefender.States
                 {
                   Text = "Play",
                   Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing), _buttonSize),
-                  Click = new EventHandler(PlayButtonClicked),
-                  Layer = 0.1f
+                  Click = new EventHandler(PlayButtonClicked)
                 },
                 new Button(null, font, _game.GraphicsDevice)
                 {
                   Text = "Highscores",
                   Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*2), _buttonSize),
-                  Click = new EventHandler(HighscoresButtonClicked),
-                  Layer = 0.1f
+                  Click = new EventHandler(HighscoresButtonClicked)
                 },
                 new Button(null, font, _game.GraphicsDevice)
                 {
                   Text = "Exit",
                   Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*3), _buttonSize),
-                  Click = new EventHandler(ExitButtonClicked),
-                  Layer = 0.1f
+                  Click = new EventHandler(ExitButtonClicked)
                 }
               };
         }
@@ -61,10 +58,9 @@ namespace SpaceDefender.States
             string name = Microsoft.VisualBasic.Interaction.InputBox("Insert player name. Do not user 'Player' if you don't want your score to be overwritten ", "Player name", "Player", -1, -1);
             if (name.Length > 0)
             {
-                Texture2D playerTexture = _content.Load<Texture2D>("Sprites/Player/ship");
+                Texture2D playerTexture = _content.Load<Texture2D>("Sprites/Player/shipbw");
                 Player player = new Player(playerTexture) {
                     Position = new Vector2(((Game1.ScreenWidth / 2) - (playerTexture.Width / 2)), (Game1.ScreenHeight) - (playerTexture.Height) - 10),
-                    Layer = 0.3f,
                     Bullet = new Bullet(_content.Load<Texture2D>("Sprites/Player/bullet")),
                     Input = new Models.Input() {
                         Right = Keys.D,
@@ -112,6 +108,7 @@ namespace SpaceDefender.States
 
             foreach (var component in _components)
                 component.Draw(gameTime, spriteBatch);
+
 
             spriteBatch.End();
         }

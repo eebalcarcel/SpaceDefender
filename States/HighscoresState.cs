@@ -31,16 +31,13 @@ namespace SpaceDefender.States
 
             _scoreManager = ScoreManager.Load();
 
-            Texture2D buttonTexture = _content.Load<Texture2D>("Button");
-
             _components = new List<Component>()
             {
                 new Button(null, _font, _game.GraphicsDevice)
                 {
                   Text = "Main Menu",
                   Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*3), _buttonSize),
-                  Click = new EventHandler(MainMenuButtonClicked),
-                  Layer = 0.1f
+                  Click = new EventHandler(MainMenuButtonClicked)
                 },
             };
         }

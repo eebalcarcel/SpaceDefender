@@ -35,7 +35,7 @@ namespace SpaceDefender
             Graphics.PreferredBackBufferHeight = ScreenHeight;
             Graphics.ApplyChanges();
 
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             
             base.Initialize();
         }
@@ -44,7 +44,7 @@ namespace SpaceDefender
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+        
             _currentState = new MenuState(this, Content);
             _currentState.LoadContent();
             _nextState = null;
@@ -85,9 +85,16 @@ namespace SpaceDefender
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(55, 55, 55));
+            GraphicsDevice.Clear(new Color(55, 55, 55));            
 
             _currentState.Draw(gameTime, spriteBatch);
+
+            if (!(_currentState is GameState))
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(Content.Load<Texture2D>("cursor"), new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
+                spriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }

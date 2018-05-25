@@ -56,7 +56,6 @@ namespace SpaceDefender.Managers
             return new Enemy(textures.Ship) {
                 Bullet = new Bullet(textures.Bullet),
                 Health = 1,
-                Layer = 0.2f,
                 Position = new Vector2(Game1.Random.Next(0, Game1.ScreenWidth - textures.Ship.Width), -textures.Ship.Height),
                 Speed = 1.25f + (float)Game1.Random.NextDouble(),
                 ShootingTimer = 1 + (float)Game1.Random.NextDouble(),

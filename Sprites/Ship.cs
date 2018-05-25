@@ -24,7 +24,6 @@ namespace SpaceDefender.Sprites
         {
             Bullet bullet = Bullet.Clone() as Bullet;
             bullet.Position = new Vector2(this.Position.X + (Hitbox.Width/2) - (bullet.Hitbox.Width/2), this.Position.Y + (Hitbox.Height / 2) - (bullet.Hitbox.Height / 2)); 
-            bullet.Layer = 0.1f;
             bullet.LifeSpan = 5f;
             bullet.Velocity = new Vector2(0f, speed);
             bullet.Parent = this;

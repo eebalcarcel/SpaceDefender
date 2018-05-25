@@ -16,8 +16,6 @@ namespace SpaceDefender.Sprites
 
         public bool IsRemoved { get; set; }
 
-        public float Layer { get; set; }
-
         public Vector2 Position { get; set; }
 
         public Rectangle Hitbox
