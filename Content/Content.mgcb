@@ -146,3 +146,15 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Enemy/bullets/bullet3.png
 
+#begin Sprites/Enemy/ships/ship3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Enemy/ships/ship3.png
+
