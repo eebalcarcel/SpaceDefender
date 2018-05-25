@@ -49,7 +49,7 @@ namespace SpaceDefender.Sprites
                 velocity.X += Speed;
 
             if (_currentKey.IsKeyDown(Input.Shoot) && _previousKey.IsKeyUp(Input.Shoot))
-                Shoot(5f);
+                Shoot(-5f);
 
             //Player leaving screen constraint
             if ((Position + velocity).X > (Game1.ScreenWidth - _texture.Width))

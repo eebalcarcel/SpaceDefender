@@ -12,13 +12,11 @@ namespace SpaceDefender.Sprites
     {
         private float _timer;
 
-        public float ShootingTimer = 1.75f;
+        public float ShootingTimer;
 
         public Enemy(Texture2D texture)
           : base(texture)
-        {
-            Speed = 2f;
-        }
+        { }
 
         public override void Update(GameTime gameTime)
         {
