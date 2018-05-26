@@ -15,9 +15,6 @@ namespace SpaceDefender.Models
         //Returns the window position of a percentage
         public static Vector2 PositionOnWindow(float x, float y)
         {
-            x = Math.Abs(x);
-            y = Math.Abs(y);
-
             if (x == 0)
                 return new Vector2(0, Game1.ScreenHeight / (100 / y));
             else if (y == 0)

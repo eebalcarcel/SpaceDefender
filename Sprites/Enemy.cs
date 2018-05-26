@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using SpaceDefender.Models;
 
 namespace SpaceDefender.Sprites
 {
@@ -17,7 +18,7 @@ namespace SpaceDefender.Sprites
         public Enemy(Texture2D texture)
           : base(texture)
         {
-           // Position = new Vector2(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), -_texture.Height);
+            Position = new Vector2(PositionPercentage.ValuePercentage(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), Game1.ScreenWidth), PositionPercentage.ValuePercentage(-_texture.Height/1.5f, Game1.ScreenHeight));
         }
 
         public override void Update(GameTime gameTime)
@@ -28,11 +29,9 @@ namespace SpaceDefender.Sprites
             {
                 Shoot(5f);
                 _timer = 0;
-            }
+            }            
 
-            //Position = new Vector2(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), -_texture.Height + Speed);
-
-            Position += new Vector2(0, Speed);
+            Position = PositionPercentage.VectorsAddition(Position, new Vector2(0, Speed));
 
             // if the enemy leaves the screen
             if (Position.Y < -_texture.Height)

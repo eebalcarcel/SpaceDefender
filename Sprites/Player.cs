@@ -34,12 +34,7 @@ namespace SpaceDefender.Sprites
         public override void Update(GameTime gameTime)
         {
             if (IsDead)
-                return;
-
-            if (Game1.PreviousScreenWidth != Game1.ScreenWidth || Game1.PreviousScreenHeight != Game1.PreviousScreenHeight)
-            {
-                Position = new Vector2(PositionPercentage.ValuePercentage(Position.X, Game1.PreviousScreenWidth), 100 - PositionPercentage.ValuePercentage(_texture.Height, Game1.ScreenHeight));
-            }
+                return;            
 
             Vector2 velocity = Vector2.Zero;
 

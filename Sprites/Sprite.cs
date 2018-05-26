@@ -42,7 +42,10 @@ namespace SpaceDefender.Sprites
 
         public override void Update(GameTime gameTime)
         {
-
+            if (Game1.PreviousScreenWidth != Game1.ScreenWidth || Game1.PreviousScreenHeight != Game1.PreviousScreenHeight)
+            {
+                Position = new Vector2(PositionPercentage.ValuePercentage(Position.X, Game1.PreviousScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

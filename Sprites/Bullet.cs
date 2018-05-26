@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using SpaceDefender.Models;
 
 namespace SpaceDefender.Sprites
 {
@@ -29,7 +30,7 @@ namespace SpaceDefender.Sprites
             if (_timer >= LifeSpan)
                 IsRemoved = true;
 
-            Position += Velocity;
+            Position = PositionPercentage.VectorsAddition(Position, Velocity);
         }
 
         public void OnCollide(Sprite sprite)
