@@ -49,7 +49,7 @@
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Managers\ScoreManager.cs" />
     <Compile Include="Models\Animation.cs" />
-    <Compile Include="Models\EnemyTexture.cs" />
+    <Compile Include="Models\EnemyModel.cs" />
     <Compile Include="Models\Input.cs" />
     <Compile Include="Models\PositionPercentage.cs" />
     <Compile Include="Models\Score.cs" />

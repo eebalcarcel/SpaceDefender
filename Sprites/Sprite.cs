@@ -18,6 +18,9 @@ namespace SpaceDefender.Sprites
         public bool IsRemoved { get; set; }
 
         private Vector2 _position;
+
+        public Color Color { get; set; } = Color.White;
+
         public Vector2 Position
         {
             get { return _position; }
@@ -50,7 +53,7 @@ namespace SpaceDefender.Sprites
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color.White);
+            spriteBatch.Draw(_texture, Position, Color);
         }
 
         public object Clone()

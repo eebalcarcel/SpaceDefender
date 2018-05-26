@@ -34,7 +34,7 @@ namespace SpaceDefender.Sprites
             Position = PositionPercentage.VectorsAddition(Position, new Vector2(0, Speed));
 
             // if the enemy leaves the screen
-            if (Position.Y < -_texture.Height)
+            if (Position.Y > Game1.ScreenHeight)
                 IsRemoved = true;
         }
 

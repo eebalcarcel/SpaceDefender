@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDefender.Sprites;
 using SpaceDefender.Controls;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework;
 
 namespace SpaceDefender.States
 {
@@ -21,7 +21,7 @@ namespace SpaceDefender.States
           : base(game, content)
         {
         }
-        
+
         public override void LoadContent()
         {
             SpriteFont font = _content.Load<SpriteFont>("Fonts/8bit");
@@ -50,22 +50,39 @@ namespace SpaceDefender.States
         }
 
 
+        public static Color ParseColor(string str)
+        {
+            string[] val = str.Split(',');
+            byte r = 255, g = 255, b = 255, a = 255;
+
+            if (val.Length >= 1) r = byte.Parse(val[0]);
+            if (val.Length >= 2) g = byte.Parse(val[1]);
+            if (val.Length >= 3) b = byte.Parse(val[2]);
+
+            return Color.FromNonPremultiplied(r, g, b, a);
+        }
+
         private void PlayButtonClicked(object sender, EventArgs args)
         {
-            string name = Microsoft.VisualBasic.Interaction.InputBox("Insert player name. Do not user 'Player' if you don't want your score to be overwritten ", "Player name", "Player", -1, -1);
-            if (name.Length > 0)
+            string playerName = Microsoft.VisualBasic.Interaction.InputBox("Type in the player name", "Player name", "Player", -1, -1);
+            string shipColorString = Microsoft.VisualBasic.Interaction.InputBox("Type in the ship rgb color as r,g,b", "Ship color", "255,255,255", -1, -1);
+            if (playerName.Length > 0 && shipColorString.Length > 0)
             {
                 Texture2D playerTexture = _content.Load<Texture2D>("Sprites/Player/shipbw");
+                Color shipColor = ParseColor(shipColorString); ;
+                Bullet bullet = new Bullet(_content.Load<Texture2D>("Sprites/bullet"));
+                bullet.Color = shipColor;
                 Player player = new Player(playerTexture) {
-                    Bullet = new Bullet(_content.Load<Texture2D>("Sprites/Player/bullet")),
+                    Bullet = bullet,
                     Input = new Models.Input() {
                         Right = Keys.D,
                         Left = Keys.A,
                         Shoot = Keys.Space,
                     },
+                    Color = shipColor,
                     Health = 10,
                     Score = new Models.Score() {
-                        PlayerName = name,
+                        PlayerName = playerName,
                         Value = 0,
                     },
                 };

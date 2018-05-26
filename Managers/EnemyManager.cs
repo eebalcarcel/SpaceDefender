@@ -16,24 +16,25 @@ namespace SpaceDefender.Managers
 
         private float _timer;
 
-        private List<EnemyTexture> _textures;
+        private List<EnemyModel> _textures;
+
+        private Texture2D _bulletTexture;
 
         public bool CanAdd { get; set; }
 
-        public int MaxEnemies { get; set; }
+        public int MaxEnemies { get; set; } = 10;
 
-        public float SpawnTimer { get; set; }
+        public float SpawnTimer { get; set; } = 2.5f;
 
         public EnemyManager(ContentManager content)
         {
-            _textures = new List<EnemyTexture>() {
-               new EnemyTexture(content.Load<Texture2D>("Sprites/Enemy/ships/ship"), content.Load<Texture2D>("Sprites/Enemy/bullets/bullet")),
-               new EnemyTexture(content.Load<Texture2D>("Sprites/Enemy/ships/ship2"), content.Load<Texture2D>("Sprites/Enemy/bullets/bullet2")),
-               new EnemyTexture(content.Load<Texture2D>("Sprites/Enemy/ships/ship3"), content.Load<Texture2D>("Sprites/Enemy/bullets/bullet3"))
+            _textures = new List<EnemyModel>() {
+               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship"), Color.Magenta),
+               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship2"), Color.Red),
+               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship3"), Color.Yellow)
             };
 
-            MaxEnemies = 10;
-            SpawnTimer = 2.5f;
+            _bulletTexture = content.Load<Texture2D>("Sprites/bullet");
         }
 
         public void Update(GameTime gameTime)
@@ -52,10 +53,13 @@ namespace SpaceDefender.Managers
 
         public Enemy GetEnemy()
         {
-            EnemyTexture textures = _textures[Game1.Random.Next(0, _textures.Count)];
+            EnemyModel textures = _textures[Game1.Random.Next(0, _textures.Count)];
+
+            Bullet bullet = new Bullet(_bulletTexture);
+            bullet.Color = textures.Color;
 
             return new Enemy(textures.Ship) {
-                Bullet = new Bullet(textures.Bullet),
+                Bullet = bullet,
                 Health = 1,
                 Speed = 1.25f + (float)Game1.Random.NextDouble(),
                 ShootingTimer = 1 + (float)Game1.Random.NextDouble(),
