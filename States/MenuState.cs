@@ -31,22 +31,19 @@ namespace SpaceDefender.States
 
             _components = new List<Component>()
                 {
-                new Button(null, font, _game.GraphicsDevice)
+                new Button(null, font, _game.GraphicsDevice, 0)
                 {
                   Text = "Play",
-                  Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing), _buttonSize),
                   Click = new EventHandler(PlayButtonClicked)
                 },
-                new Button(null, font, _game.GraphicsDevice)
+                new Button(null, font, _game.GraphicsDevice, 1)
                 {
                   Text = "Highscores",
-                  Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*2), _buttonSize),
                   Click = new EventHandler(HighscoresButtonClicked)
                 },
-                new Button(null, font, _game.GraphicsDevice)
+                new Button(null, font, _game.GraphicsDevice, 2)
                 {
                   Text = "Exit",
-                  Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*3), _buttonSize),
                   Click = new EventHandler(ExitButtonClicked)
                 }
               };
@@ -60,7 +57,6 @@ namespace SpaceDefender.States
             {
                 Texture2D playerTexture = _content.Load<Texture2D>("Sprites/Player/shipbw");
                 Player player = new Player(playerTexture) {
-                    Position = new Vector2(((Game1.ScreenWidth / 2) - (playerTexture.Width / 2)), (Game1.ScreenHeight) - (playerTexture.Height) - 10),
                     Bullet = new Bullet(_content.Load<Texture2D>("Sprites/Player/bullet")),
                     Input = new Models.Input() {
                         Right = Keys.D,

@@ -13,6 +13,7 @@ namespace SpaceDefender.Managers
 {
     public class EnemyManager
     {
+
         private float _timer;
 
         private List<EnemyTexture> _textures;

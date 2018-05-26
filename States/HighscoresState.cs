@@ -33,10 +33,9 @@ namespace SpaceDefender.States
 
             _components = new List<Component>()
             {
-                new Button(null, _font, _game.GraphicsDevice)
+                new Button(null, _font, _game.GraphicsDevice, 3)
                 {
                   Text = "Main Menu",
-                  Rectangle = new Rectangle(new Point(_buttonXAlignment, _buttonYAlignment + _buttonsSpacing*3), _buttonSize),
                   Click = new EventHandler(MainMenuButtonClicked)
                 },
             };

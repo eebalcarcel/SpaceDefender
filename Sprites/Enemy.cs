@@ -16,7 +16,9 @@ namespace SpaceDefender.Sprites
 
         public Enemy(Texture2D texture)
           : base(texture)
-        { }
+        {
+           // Position = new Vector2(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), -_texture.Height);
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -27,6 +29,8 @@ namespace SpaceDefender.Sprites
                 Shoot(5f);
                 _timer = 0;
             }
+
+            //Position = new Vector2(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), -_texture.Height + Speed);
 
             Position += new Vector2(0, Speed);
 

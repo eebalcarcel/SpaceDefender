@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceDefender.Models;
 
 namespace SpaceDefender.Sprites
 {
@@ -16,7 +17,12 @@ namespace SpaceDefender.Sprites
 
         public bool IsRemoved { get; set; }
 
-        public Vector2 Position { get; set; }
+        private Vector2 _position;
+        public Vector2 Position
+        {
+            get { return _position; }
+            set { _position = PositionPercentage.ScreenLocation(value.X, value.Y);}
+        }
 
         public Rectangle Hitbox
         {

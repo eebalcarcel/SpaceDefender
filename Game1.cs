@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using SpaceDefender.Sprites;
 using SpaceDefender.States;
+using System.Runtime.InteropServices;
 
 namespace SpaceDefender
 {
@@ -14,17 +15,22 @@ namespace SpaceDefender
         SpriteBatch spriteBatch;
 
         public static Random Random;
-
-        public static int ScreenWidth = 1280;
-        public static int ScreenHeight = 720;
+        public static int ScreenWidth { get; set; } = 1280;
+        public static int ScreenHeight { get; set; } = 720;
+        public static int PreviousScreenWidth { get; set; }
+        public static int PreviousScreenHeight { get; set; }
 
         private State _currentState;
         private State _nextState;
+
+        public static KeyboardState CurrentKey { get; set; }
+        public static KeyboardState PreviousKey { get; set; }
 
         public Game1()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         protected override void Initialize()
@@ -36,7 +42,7 @@ namespace SpaceDefender
             Graphics.ApplyChanges();
 
             IsMouseVisible = false;
-            
+
             base.Initialize();
         }
 
@@ -44,7 +50,7 @@ namespace SpaceDefender
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-        
+
             _currentState = new MenuState(this, Content);
             _currentState.LoadContent();
             _nextState = null;
@@ -56,12 +62,19 @@ namespace SpaceDefender
 
         protected override void Update(GameTime gameTime)
         {
+            PreviousKey = CurrentKey;
+            CurrentKey = Keyboard.GetState();
+
+            PreviousScreenWidth = ScreenWidth;
+            PreviousScreenHeight = ScreenHeight;
+
+
+            if (CurrentKey.IsKeyDown(Keys.F11) && PreviousKey.IsKeyUp(Keys.F11))
+                Graphics.ToggleFullScreen();
 
             ScreenWidth = Window.ClientBounds.Width;
             ScreenHeight = Window.ClientBounds.Height;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.F11))
-                Graphics.ToggleFullScreen();            
 
             if (_nextState != null)
             {
@@ -69,7 +82,7 @@ namespace SpaceDefender
                 _currentState.LoadContent();
 
                 _nextState = null;
-            }                       
+            }
 
             _currentState.Update(gameTime);
 
@@ -85,7 +98,7 @@ namespace SpaceDefender
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(55, 55, 55));            
+            GraphicsDevice.Clear(new Color(55, 55, 55));
 
             _currentState.Draw(gameTime, spriteBatch);
 
@@ -99,4 +112,5 @@ namespace SpaceDefender
             base.Draw(gameTime);
         }
     }
+
 }

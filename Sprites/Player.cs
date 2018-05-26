@@ -12,9 +12,6 @@ namespace SpaceDefender.Sprites
 {
     public class Player : Ship
     {
-        private KeyboardState _currentKey;
-
-        private KeyboardState _previousKey;
 
         public bool IsDead
         {
@@ -30,7 +27,8 @@ namespace SpaceDefender.Sprites
         public Player(Texture2D texture)
           : base(texture)
         {
-            Speed = 3f;
+            Speed = 3;
+            Position = new Vector2(50 - PositionPercentage.ValuePercent(_texture.Width / 2, Game1.ScreenWidth), 100 - PositionPercentage.ValuePercent(_texture.Height, Game1.ScreenHeight));
         }
 
         public override void Update(GameTime gameTime)
@@ -38,26 +36,28 @@ namespace SpaceDefender.Sprites
             if (IsDead)
                 return;
 
-            _previousKey = _currentKey;
-            _currentKey = Keyboard.GetState();
+            if (Game1.PreviousScreenWidth != Game1.ScreenWidth || Game1.PreviousScreenHeight != Game1.PreviousScreenHeight)
+            {
+                Position = new Vector2(PositionPercentage.ValuePercent(Position.X, Game1.PreviousScreenWidth), 100 - PositionPercentage.ValuePercent(_texture.Height, Game1.ScreenHeight));
+            }
 
             Vector2 velocity = Vector2.Zero;
 
-            if (_currentKey.IsKeyDown(Input.Left))
+            if (Game1.CurrentKey.IsKeyDown(Input.Left))
                 velocity.X -= Speed;
-            else if (_currentKey.IsKeyDown(Input.Right))
+            else if (Game1.CurrentKey.IsKeyDown(Input.Right))
                 velocity.X += Speed;
 
-            if (_currentKey.IsKeyDown(Input.Shoot) && _previousKey.IsKeyUp(Input.Shoot))
+            if (Game1.CurrentKey.IsKeyDown(Input.Shoot) && Game1.PreviousKey.IsKeyUp(Input.Shoot))
                 Shoot(-5f);
 
             //Player leaving screen constraint
             if ((Position + velocity).X > (Game1.ScreenWidth - _texture.Width))
-                Position = new Vector2(Game1.ScreenWidth - _texture.Width, Position.Y);
+                Position = new Vector2(PositionPercentage.ValuePercent(Game1.ScreenWidth - _texture.Width, Game1.ScreenWidth), PositionPercentage.ValuePercent(Position.Y, Game1.ScreenHeight));
             else if ((Position + velocity).X < 0)
-                Position = new Vector2(0, Position.Y);
+                Position = new Vector2(PositionPercentage.ValuePercent(0, Game1.ScreenWidth), PositionPercentage.ValuePercent(Position.Y, Game1.ScreenHeight));
             else
-                Position += velocity;
+                Position = PositionPercentage.VectorsAddition(Position, velocity);           
 
         }
 
@@ -72,5 +72,6 @@ namespace SpaceDefender.Sprites
                 Health--;
             }
         }
+
     }
 }
