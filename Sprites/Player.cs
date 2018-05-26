@@ -28,7 +28,7 @@ namespace SpaceDefender.Sprites
           : base(texture)
         {
             Speed = 3;
-            Position = new Vector2(50 - PositionPercentage.ValuePercent(_texture.Width / 2, Game1.ScreenWidth), 100 - PositionPercentage.ValuePercent(_texture.Height, Game1.ScreenHeight));
+            Position = new Vector2(50 - PositionPercentage.ValuePercentage(_texture.Width / 2, Game1.ScreenWidth), 100 - PositionPercentage.ValuePercentage(_texture.Height, Game1.ScreenHeight));
         }
 
         public override void Update(GameTime gameTime)
@@ -38,7 +38,7 @@ namespace SpaceDefender.Sprites
 
             if (Game1.PreviousScreenWidth != Game1.ScreenWidth || Game1.PreviousScreenHeight != Game1.PreviousScreenHeight)
             {
-                Position = new Vector2(PositionPercentage.ValuePercent(Position.X, Game1.PreviousScreenWidth), 100 - PositionPercentage.ValuePercent(_texture.Height, Game1.ScreenHeight));
+                Position = new Vector2(PositionPercentage.ValuePercentage(Position.X, Game1.PreviousScreenWidth), 100 - PositionPercentage.ValuePercentage(_texture.Height, Game1.ScreenHeight));
             }
 
             Vector2 velocity = Vector2.Zero;
@@ -53,9 +53,9 @@ namespace SpaceDefender.Sprites
 
             //Player leaving screen constraint
             if ((Position + velocity).X > (Game1.ScreenWidth - _texture.Width))
-                Position = new Vector2(PositionPercentage.ValuePercent(Game1.ScreenWidth - _texture.Width, Game1.ScreenWidth), PositionPercentage.ValuePercent(Position.Y, Game1.ScreenHeight));
+                Position = new Vector2(PositionPercentage.ValuePercentage(Game1.ScreenWidth - _texture.Width, Game1.ScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
             else if ((Position + velocity).X < 0)
-                Position = new Vector2(PositionPercentage.ValuePercent(0, Game1.ScreenWidth), PositionPercentage.ValuePercent(Position.Y, Game1.ScreenHeight));
+                Position = new Vector2(PositionPercentage.ValuePercentage(0, Game1.ScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
             else
                 Position = PositionPercentage.VectorsAddition(Position, velocity);           
 

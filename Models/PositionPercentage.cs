@@ -12,8 +12,8 @@ namespace SpaceDefender.Models
 
         private static int percent = 100;
 
-        //Returns the screen location of a percentage
-        public static Vector2 ScreenLocation(float x, float y)
+        //Returns the window position of a percentage
+        public static Vector2 PositionOnWindow(float x, float y)
         {
             x = Math.Abs(x);
             y = Math.Abs(y);
@@ -26,8 +26,8 @@ namespace SpaceDefender.Models
                 return new Vector2(Game1.ScreenWidth / (100 / x), Game1.ScreenHeight / (100 / y));
         }
 
-        //Returns value location percentage
-        public static float ValuePercent(float value, float screen)
+        //Returns value position percentage
+        public static float ValuePercentage(float value, float screen)
         {
             return (value * percent) / screen;
         }
@@ -35,7 +35,7 @@ namespace SpaceDefender.Models
         //Correctly adds two vectors
         public static Vector2 VectorsAddition(Vector2 vector, Vector2 vector2)
         {
-            return new Vector2(PositionPercentage.ValuePercent(vector.X + vector2.X, Game1.ScreenWidth), PositionPercentage.ValuePercent(vector.Y + vector2.Y, Game1.ScreenHeight));
+            return new Vector2(PositionPercentage.ValuePercentage(vector.X + vector2.X, Game1.ScreenWidth), PositionPercentage.ValuePercentage(vector.Y + vector2.Y, Game1.ScreenHeight));
         }
 
     }

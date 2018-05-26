@@ -21,7 +21,7 @@ namespace SpaceDefender.Sprites
         public Vector2 Position
         {
             get { return _position; }
-            set { _position = PositionPercentage.ScreenLocation(value.X, value.Y);}
+            set { _position = PositionPercentage.PositionOnWindow(value.X, value.Y);}
         }
 
         public Rectangle Hitbox
