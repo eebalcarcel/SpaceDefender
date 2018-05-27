@@ -65,7 +65,6 @@ namespace SpaceDefender.States
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
             spriteBatch.Draw(_content.Load<Texture2D>("Background/Highscores"), _game.GraphicsDevice.Viewport.Bounds, Color.White);
 
-
             foreach (var component in _components)
                 component.Draw(gameTime, spriteBatch);
 
@@ -73,7 +72,7 @@ namespace SpaceDefender.States
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
 
-            spriteBatch.DrawString(_font, "Highscores \n" + string.Join("\n", _scoreManager.HighScores.Select(c => c.PlayerName + " " + c.Value)), new Vector2(400, 100), Color.Red);
+            spriteBatch.DrawString(_font, "Highscores \n" + string.Join("\n", _scoreManager.HighScores.Select(c => c.PlayerName + " " + c.Value)), new Vector2(400, 100), Color.FromNonPremultiplied(243, 245, 89, 255));
 
             spriteBatch.End();
         }
