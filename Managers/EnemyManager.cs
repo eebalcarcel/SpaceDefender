@@ -15,8 +15,8 @@ namespace SpaceDefender.Managers
     {
 
         private float _timer;
-
-        private List<EnemyModel> _textures;
+        
+        private List<EnemyModel> _animations;
 
         private Texture2D _bulletTexture;
 
@@ -28,10 +28,10 @@ namespace SpaceDefender.Managers
 
         public EnemyManager(ContentManager content)
         {
-            _textures = new List<EnemyModel>() {
-               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship"), Color.Magenta),
-               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship2"), Color.Red),
-               new EnemyModel(content.Load<Texture2D>("Sprites/Enemy/ships/ship3"), Color.Yellow)
+            _animations = new List<EnemyModel>() {
+               new EnemyModel(new Animation(content.Load<Texture2D>("Sprites/Enemy/ships/shipAnimated"), 4), Color.Magenta),
+               new EnemyModel(new Animation(content.Load<Texture2D>("Sprites/Enemy/ships/ship2Animated"), 4), Color.Red),
+               new EnemyModel(new Animation(content.Load<Texture2D>("Sprites/Enemy/ships/ship3Animated"), 4), Color.Yellow)
             };
 
             _bulletTexture = content.Load<Texture2D>("Sprites/bullet");
@@ -53,12 +53,12 @@ namespace SpaceDefender.Managers
 
         public Enemy GetEnemy()
         {
-            EnemyModel textures = _textures[Game1.Random.Next(0, _textures.Count)];
+            EnemyModel animations = _animations[Game1.Random.Next(0, _animations.Count)];
 
             Bullet bullet = new Bullet(_bulletTexture);
-            bullet.Color = textures.Color;
+            bullet.Color = animations.Color;
 
-            return new Enemy(textures.Ship) {
+            return new Enemy(animations.Ship) {
                 Bullet = bullet,
                 Health = 1,
                 Speed = 1.25f + (float)Game1.Random.NextDouble(),

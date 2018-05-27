@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceDefender.Managers;
 using SpaceDefender.Models;
 
 namespace SpaceDefender.Sprites
@@ -13,23 +14,36 @@ namespace SpaceDefender.Sprites
     {
         protected Texture2D _texture;
 
+        protected AnimationManager _animationManager;
+
+        protected Animation _animation;
+
         public List<Sprite> Children { get; set; }
 
         public bool IsRemoved { get; set; }
 
-        private Vector2 _position;
+        protected Vector2 _position;
 
         public Color Color { get; set; } = Color.White;
 
         public Vector2 Position
         {
             get { return _position; }
-            set { _position = PositionPercentage.PositionOnWindow(value.X, value.Y);}
+            set {
+                _position = PositionPercentage.PositionOnWindow(value.X, value.Y);
+                if (_animationManager != null)
+                {
+                    _animationManager.Position = _position;
+                }
+            }
         }
 
         public Rectangle Hitbox
         {
             get {
+                if (_animationManager != null)
+                    return new Rectangle((int)Position.X, (int)Position.Y, _animation.FrameWidth, _animation.FrameHeight);
+
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
@@ -43,17 +57,26 @@ namespace SpaceDefender.Sprites
             Children = new List<Sprite>();
         }
 
+        public Sprite(Animation animation)
+        {
+            _animation = animation;
+            _animationManager = new AnimationManager(_animation);
+
+            Children = new List<Sprite>();
+        }
+
         public override void Update(GameTime gameTime)
         {
-            if (Game1.PreviousScreenWidth != Game1.ScreenWidth || Game1.PreviousScreenHeight != Game1.PreviousScreenHeight)
-            {
-                Position = new Vector2(PositionPercentage.ValuePercentage(Position.X, Game1.PreviousScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
-            }
+            if (_animationManager != null)
+                _animationManager.Play(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color);
+            if (_animationManager != null)
+                _animationManager.Draw(spriteBatch);
+            else
+                spriteBatch.Draw(_texture, Position, Color);
         }
 
         public object Clone()

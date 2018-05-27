@@ -11,11 +11,11 @@ namespace SpaceDefender.Models
 {
     class EnemyModel
     {
-        public Texture2D Ship { get; private set; }
+        public Animation Ship { get; private set; }
 
         public Color Color{ get; private set; }
 
-        public EnemyModel(Texture2D ship, Color color)
+        public EnemyModel(Animation ship, Color color)
         {
             Ship = ship;
             Color = color;

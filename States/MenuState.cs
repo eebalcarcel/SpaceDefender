@@ -24,7 +24,7 @@ namespace SpaceDefender.States
 
         public override void LoadContent()
         {
-            SpriteFont font = _content.Load<SpriteFont>("Fonts/8bit");
+            SpriteFont font = _content.Load<SpriteFont>("Font/8bit");
             Song song = _content.Load<Song>("Sounds/Menu");
             //MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;

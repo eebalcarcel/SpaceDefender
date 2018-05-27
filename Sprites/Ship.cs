@@ -21,6 +21,10 @@ namespace SpaceDefender.Sprites
         {
         }
 
+        public Ship(Animation animation) : base(animation)
+        {
+        }
+
         protected void Shoot(float speed)
         {
             Bullet bullet = Bullet.Clone() as Bullet;

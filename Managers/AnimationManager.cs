@@ -32,27 +32,8 @@ namespace SpaceDefender.Managers
                                      _animation.FrameHeight),
                        Color.White);
     }
-
-    public void Play(Animation animation)
-    {
-      if (_animation == animation)
-        return;
-
-      _animation = animation;
-
-      _animation.CurrentFrame = 0;
-
-      _timer = 0;
-    }
-
-    public void Stop()
-    {
-      _timer = 0f;
-
-      _animation.CurrentFrame = 0;
-    }
-
-    public void Update(GameTime gameTime)
+ 
+    public void Play(GameTime gameTime)
     {
       _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

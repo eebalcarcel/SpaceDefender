@@ -34,7 +34,7 @@ namespace SpaceDefender.States
 
         public override void LoadContent()
         {
-            _font = _content.Load<SpriteFont>("Fonts/8bit");
+            _font = _content.Load<SpriteFont>("Font/8bit");
 
             _scoreManager = ScoreManager.Load();
 

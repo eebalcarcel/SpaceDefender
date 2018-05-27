@@ -21,8 +21,15 @@ namespace SpaceDefender.Sprites
             Position = new Vector2(PositionPercentage.ValuePercentage(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), Game1.ScreenWidth), PositionPercentage.ValuePercentage(-_texture.Height/1.5f, Game1.ScreenHeight));
         }
 
+        public Enemy(Animation animation) : base(animation)
+        {
+            Position = new Vector2(PositionPercentage.ValuePercentage(Game1.Random.Next(0, Game1.ScreenWidth - _animation.FrameWidth), Game1.ScreenWidth), PositionPercentage.ValuePercentage(-_animation.FrameHeight / 1.5f, Game1.ScreenHeight));
+        }
+
         public override void Update(GameTime gameTime)
         {
+            _animationManager.Play(gameTime);
+
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (_timer >= ShootingTimer)
