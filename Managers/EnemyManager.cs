@@ -20,13 +20,15 @@ namespace SpaceDefender.Managers
 
         private Texture2D _bulletTexture;
 
+        private GraphicsDevice _graphicsDevice;
+
         public bool CanAdd { get; set; }
 
         public int MaxEnemies { get; set; } = 10;
 
         public float SpawnTimer { get; set; } = 2.5f;
 
-        public EnemyManager(ContentManager content)
+        public EnemyManager(ContentManager content, GraphicsDevice graphicsDevice)
         {
             _animations = new List<EnemyModel>() {
                new EnemyModel(new Animation(content.Load<Texture2D>("Sprites/Enemy/ships/shipAnimated"), 4), Color.Magenta),
@@ -34,6 +36,7 @@ namespace SpaceDefender.Managers
                new EnemyModel(new Animation(content.Load<Texture2D>("Sprites/Enemy/ships/ship3Animated"), 4), Color.Yellow)
             };
 
+            _graphicsDevice = graphicsDevice;
             _bulletTexture = content.Load<Texture2D>("Sprites/bullet");
         }
 
@@ -55,10 +58,10 @@ namespace SpaceDefender.Managers
         {
             EnemyModel animations = _animations[Game1.Random.Next(0, _animations.Count)];
 
-            Bullet bullet = new Bullet(_bulletTexture);
+            Bullet bullet = new Bullet(_bulletTexture, _graphicsDevice);
             bullet.Color = animations.Color;
 
-            return new Enemy(animations.Ship) {
+            return new Enemy(animations.Ship, _graphicsDevice) {
                 Bullet = bullet,
                 Health = 1,
                 Speed = 1.25f + (float)Game1.Random.NextDouble(),

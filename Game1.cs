@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using SpaceDefender.Sprites;
 using SpaceDefender.States;
 using System.Runtime.InteropServices;
+using SpaceDefender.Models;
 
 namespace SpaceDefender
 {
@@ -15,10 +16,8 @@ namespace SpaceDefender
         SpriteBatch spriteBatch;
 
         public static Random Random;
-        public static int ScreenWidth { get; set; } = 1280;
-        public static int ScreenHeight { get; set; } = 720;
-        public static int PreviousScreenWidth { get; set; }
-        public static int PreviousScreenHeight { get; set; }
+        public int ScreenWidth { get; set; }
+        public int ScreenHeight { get; set; }
 
         private State _currentState;
         private State _nextState;
@@ -36,6 +35,9 @@ namespace SpaceDefender
         protected override void Initialize()
         {
             Random = new Random();
+
+            ScreenWidth = 1280;
+            ScreenHeight = 720;
 
             Graphics.PreferredBackBufferWidth = ScreenWidth;
             Graphics.PreferredBackBufferHeight = ScreenHeight;
@@ -65,15 +67,20 @@ namespace SpaceDefender
             PreviousKey = CurrentKey;
             CurrentKey = Keyboard.GetState();
 
-            PreviousScreenWidth = ScreenWidth;
-            PreviousScreenHeight = ScreenHeight;
 
+            if (_currentState is MenuState)
+            {
+                if (Graphics.IsFullScreen)
+                    Graphics.ToggleFullScreen();
+                if (CurrentKey.IsKeyDown(Keys.Escape) && PreviousKey.IsKeyUp(Keys.Escape))
+                    Exit();
+            }
 
-            if (CurrentKey.IsKeyDown(Keys.F11) && PreviousKey.IsKeyUp(Keys.F11))
+            if (CurrentKey.IsKeyDown(Keys.F11) && PreviousKey.IsKeyUp(Keys.F11) && !(_currentState is MenuState))
                 Graphics.ToggleFullScreen();
 
-            ScreenWidth = Window.ClientBounds.Width;
-            ScreenHeight = Window.ClientBounds.Height;
+            ScreenWidth = GraphicsDevice.Viewport.Bounds.Width;
+            ScreenHeight = GraphicsDevice.Viewport.Bounds.Height;
 
 
             if (_nextState != null)

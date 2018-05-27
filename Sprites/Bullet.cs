@@ -17,8 +17,8 @@ namespace SpaceDefender.Sprites
 
         public Vector2 Velocity { get; set; }
 
-        public Bullet(Texture2D texture)
-          : base(texture)
+        public Bullet(Texture2D texture, GraphicsDevice graphicsDevice)
+          : base(texture, graphicsDevice)
         {
 
         }
@@ -30,7 +30,7 @@ namespace SpaceDefender.Sprites
             if (_timer >= LifeSpan)
                 IsRemoved = true;
 
-            Position = PositionPercentage.VectorsAddition(Position, Velocity);
+            Position += Velocity;
         }
 
         public void OnCollide(Sprite sprite)

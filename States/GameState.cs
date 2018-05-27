@@ -42,7 +42,7 @@ namespace SpaceDefender.States
 
             _sprites.Add(_player);
 
-            _enemyManager = new EnemyManager(_content);
+            _enemyManager = new EnemyManager(_content, _game.GraphicsDevice);
         }
 
         public override void Update(GameTime gameTime)

@@ -24,11 +24,11 @@ namespace SpaceDefender.Sprites
 
         public Score Score { get; set; }
 
-        public Player(Texture2D texture)
-          : base(texture)
+        public Player(Texture2D texture, GraphicsDevice graphicsDevice)
+          : base(texture, graphicsDevice)
         {
             Speed = 3;
-            Position = new Vector2(50 - PositionPercentage.ValuePercentage(_texture.Width / 2, Game1.ScreenWidth), 100 - PositionPercentage.ValuePercentage(_texture.Height, Game1.ScreenHeight));
+            Position = new Vector2((graphicsDevice.Viewport.Width / 2) - (_texture.Width / 2), graphicsDevice.Viewport.Height - _texture.Height);
         }
 
         public override void Update(GameTime gameTime)
@@ -37,7 +37,7 @@ namespace SpaceDefender.Sprites
                 return;            
 
             Vector2 velocity = Vector2.Zero;
-
+            
             if (Game1.CurrentKey.IsKeyDown(Input.Left))
                 velocity.X -= Speed;
             else if (Game1.CurrentKey.IsKeyDown(Input.Right))
@@ -47,12 +47,12 @@ namespace SpaceDefender.Sprites
                 Shoot(-5f);
 
             //Player leaving screen constraint
-            if ((Position + velocity).X > (Game1.ScreenWidth - _texture.Width))
-                Position = new Vector2(PositionPercentage.ValuePercentage(Game1.ScreenWidth - _texture.Width, Game1.ScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
+            if ((Position + velocity).X > (graphicsDevice.Viewport.Width - _texture.Width))
+                Position = new Vector2(graphicsDevice.Viewport.Width - _texture.Width, Position.Y);
             else if ((Position + velocity).X < 0)
-                Position = new Vector2(PositionPercentage.ValuePercentage(0, Game1.ScreenWidth), PositionPercentage.ValuePercentage(Position.Y, Game1.ScreenHeight));
+                Position = new Vector2(0, Position.Y);
             else
-                Position = PositionPercentage.VectorsAddition(Position, velocity);           
+                Position += velocity;           
 
         }
 

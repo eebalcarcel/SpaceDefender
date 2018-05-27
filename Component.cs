@@ -8,10 +8,17 @@ using System.Threading.Tasks;
 
 namespace SpaceDefender
 {
-  public abstract class Component
-  {
-    public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+    public abstract class Component
+    {
+        protected GraphicsDevice graphicsDevice;
 
-    public abstract void Update(GameTime gameTime);
-  }
+        public Component(GraphicsDevice graphicsDevice)
+        {
+            this.graphicsDevice = graphicsDevice;
+        }
+
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+        public abstract void Update(GameTime gameTime);
+    }
 }

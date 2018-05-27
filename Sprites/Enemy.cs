@@ -12,18 +12,19 @@ namespace SpaceDefender.Sprites
     public class Enemy : Ship
     {
         private float _timer;
-
+        
         public float ShootingTimer;
+        
 
-        public Enemy(Texture2D texture)
-          : base(texture)
+        public Enemy(Texture2D texture, GraphicsDevice graphicsDevice)
+          : base(texture, graphicsDevice)
         {
-            Position = new Vector2(PositionPercentage.ValuePercentage(Game1.Random.Next(0, Game1.ScreenWidth - _texture.Width), Game1.ScreenWidth), PositionPercentage.ValuePercentage(-_texture.Height/1.5f, Game1.ScreenHeight));
+            Position = new Vector2(graphicsDevice.Viewport.Width - _texture.Width, -_texture.Height/1.5f);
         }
 
-        public Enemy(Animation animation) : base(animation)
+        public Enemy(Animation animation, GraphicsDevice graphicsDevice) : base(animation, graphicsDevice)
         {
-            Position = new Vector2(PositionPercentage.ValuePercentage(Game1.Random.Next(0, Game1.ScreenWidth - _animation.FrameWidth), Game1.ScreenWidth), PositionPercentage.ValuePercentage(-_animation.FrameHeight / 1.5f, Game1.ScreenHeight));
+            Position = new Vector2(Game1.Random.Next(0, graphicsDevice.Viewport.Width - _animation.FrameWidth), -_animation.FrameHeight / 1.5f);
         }
 
         public override void Update(GameTime gameTime)
@@ -38,10 +39,10 @@ namespace SpaceDefender.Sprites
                 _timer = 0;
             }            
 
-            Position = PositionPercentage.VectorsAddition(Position, new Vector2(0, Speed));
+            Position += new Vector2(0, Speed);
 
             // if the enemy leaves the screen
-            if (Position.Y > Game1.ScreenHeight)
+            if (Position.Y > graphicsDevice.Viewport.Width)
                 IsRemoved = true;
         }
 

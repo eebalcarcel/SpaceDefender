@@ -13,11 +13,7 @@ namespace SpaceDefender.States
     {
         protected Game1 _game;
 
-        protected ContentManager _content;
-
-        public static Point ButtonSize = new Point(200, 50);
-
-        public static int ButtonsSpacing = 70;
+        protected ContentManager _content;        
 
         public State(Game1 game, ContentManager content)
         {

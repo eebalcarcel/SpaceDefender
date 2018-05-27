@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceDefender.Models;
 using SpaceDefender.States;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,10 @@ namespace SpaceDefender.Controls
 
         private GraphicsDevice _graphicsDevice;
 
+        private static Point _buttonSize;
+
+        private static int _buttonsSpacing;
+
         #endregion
 
         #region Properties
@@ -55,7 +60,7 @@ namespace SpaceDefender.Controls
 
         #region Methods
 
-        public Button(Texture2D texture, SpriteFont font, GraphicsDevice graphicsDevice, int buttonSpacingMultiplier)
+        public Button(Texture2D texture, SpriteFont font, GraphicsDevice graphicsDevice, int buttonSpacingMultiplier) : base(graphicsDevice)
         {
             if (texture == null)
             {
@@ -72,13 +77,17 @@ namespace SpaceDefender.Controls
             else
                 _buttonSpacingMultiplier = buttonSpacingMultiplier;
 
+            _buttonsSpacing = 70;
+
+            _buttonSize = new Point(200, 50);
+
             _graphicsDevice = graphicsDevice;
 
             _font = font;
 
             TextColor = Color.Black;
-
-            Rectangle = new Rectangle(new Point((Game1.ScreenWidth / 2) - (State.ButtonSize.X / 2), (Game1.ScreenHeight / 2) - (State.ButtonSize.Y / 2) + State.ButtonsSpacing * _buttonSpacingMultiplier), State.ButtonSize);
+           
+            Rectangle = new Rectangle(new Point((graphicsDevice.Viewport.Width / 2) - (_buttonSize.X / 2), (graphicsDevice.Viewport.Width / 2) - (_buttonSize.Y / 2) + _buttonsSpacing * _buttonSpacingMultiplier), _buttonSize);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -97,6 +106,7 @@ namespace SpaceDefender.Controls
 
                 spriteBatch.DrawString(_font, Text, new Vector2(x, y), TextColor, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 0.01f);
             }
+
         }
 
         public override void Update(GameTime gameTime)
@@ -104,7 +114,13 @@ namespace SpaceDefender.Controls
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
-            Rectangle = new Rectangle(new Point((Game1.ScreenWidth / 2) - (State.ButtonSize.X / 2), (Game1.ScreenHeight / 2) - (State.ButtonSize.Y / 2) + State.ButtonsSpacing * _buttonSpacingMultiplier), State.ButtonSize);
+            if (graphicsDevice.Viewport.Height > 720)
+            {
+                System.Diagnostics.Debug.Write("hey");
+            }
+
+            Rectangle = new Rectangle(new Point((graphicsDevice.Viewport.Width / 2) - (_buttonSize.X / 2), (graphicsDevice.Viewport.Height / 2) - (_buttonSize.Y / 2) + _buttonsSpacing * _buttonSpacingMultiplier), _buttonSize);
+
 
             Rectangle mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 

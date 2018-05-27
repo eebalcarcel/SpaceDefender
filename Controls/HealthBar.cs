@@ -32,7 +32,7 @@ namespace SpaceDefender.Controls
         {
             get { return _rectangle; }
             set {
-                Vector2 position = PositionPercentage.PositionOnWindow(value.X, value.Y);
+                Vector2 position = new Vector2(value.X, value.Y);
                 _rectangle = new Rectangle((int)position.X, (int)position.Y, value.Width, value.Height);
                 _rectangleWidth = value.Width;
             }
@@ -43,7 +43,7 @@ namespace SpaceDefender.Controls
         #endregion
 
 
-        public HealthBar(Player player, GraphicsDevice graphicsDevice)
+        public HealthBar(Player player, GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
             _player = player;
             _texture = new Texture2D(graphicsDevice, 1, 1);
@@ -58,7 +58,7 @@ namespace SpaceDefender.Controls
 
         public override void Update(GameTime gameTime)
         {
-            Rectangle = new Rectangle((int)PositionPercentage.ValuePercentage(Rectangle.X, Game1.ScreenWidth), (int)PositionPercentage.ValuePercentage(Rectangle.Y, Game1.ScreenHeight), (_rectangleWidth * _player.Health / 10), Rectangle.Height);
+            Rectangle = new Rectangle(Rectangle.X, Rectangle.Y, (_rectangleWidth * _player.Health / 10), Rectangle.Height);
         }
     }
 }

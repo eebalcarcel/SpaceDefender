@@ -17,18 +17,18 @@ namespace SpaceDefender.Sprites
 
         public float Speed;
 
-        public Ship(Texture2D texture) : base(texture)
+        public Ship(Texture2D texture, GraphicsDevice graphicsDevice) : base(texture, graphicsDevice)
         {
         }
 
-        public Ship(Animation animation) : base(animation)
+        public Ship(Animation animation, GraphicsDevice graphicsDevice) : base(animation, graphicsDevice)
         {
         }
 
         protected void Shoot(float speed)
         {
             Bullet bullet = Bullet.Clone() as Bullet;
-            bullet.Position = new Vector2(PositionPercentage.ValuePercentage(this.Position.X + (Hitbox.Width / 2) - (bullet.Hitbox.Width / 2), Game1.PreviousScreenWidth), PositionPercentage.ValuePercentage(this.Position.Y + (Hitbox.Height / 2) - (bullet.Hitbox.Height / 2), Game1.ScreenHeight));
+            bullet.Position = new Vector2(this.Position.X + (Hitbox.Width / 2) - (bullet.Hitbox.Width / 2), this.Position.Y + (Hitbox.Height / 2) - (bullet.Hitbox.Height / 2));
             bullet.LifeSpan = 5f;
             bullet.Velocity = new Vector2(0f, speed);
             bullet.Parent = this;

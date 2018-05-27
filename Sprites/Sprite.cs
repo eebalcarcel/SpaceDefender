@@ -30,7 +30,7 @@ namespace SpaceDefender.Sprites
         {
             get { return _position; }
             set {
-                _position = PositionPercentage.PositionOnWindow(value.X, value.Y);
+                _position = value;
                 if (_animationManager != null)
                 {
                     _animationManager.Position = _position;
@@ -50,14 +50,14 @@ namespace SpaceDefender.Sprites
 
         public Sprite Parent;
 
-        public Sprite(Texture2D texture)
+        public Sprite(Texture2D texture, GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
             _texture = texture;
 
             Children = new List<Sprite>();
         }
 
-        public Sprite(Animation animation)
+        public Sprite(Animation animation, GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
             _animation = animation;
             _animationManager = new AnimationManager(_animation);

@@ -65,14 +65,14 @@ namespace SpaceDefender.States
         private void PlayButtonClicked(object sender, EventArgs args)
         {
             string playerName = Microsoft.VisualBasic.Interaction.InputBox("Type in the player name", "Player name", "Player", -1, -1);
-            string shipColorString = Microsoft.VisualBasic.Interaction.InputBox("Type in the ship rgb color as r,g,b", "Ship color", "255,255,255", -1, -1);
+            string shipColorString = playerName.Length > 0 ? Microsoft.VisualBasic.Interaction.InputBox("Type in the ship rgb color as r,g,b", "Ship color", "255,255,255", -1, -1) : null;
             if (playerName.Length > 0 && shipColorString.Length > 0)
             {
                 Texture2D playerTexture = _content.Load<Texture2D>("Sprites/Player/shipbw");
                 Color shipColor = ParseColor(shipColorString); ;
-                Bullet bullet = new Bullet(_content.Load<Texture2D>("Sprites/bullet"));
+                Bullet bullet = new Bullet(_content.Load<Texture2D>("Sprites/bullet"), _game.GraphicsDevice);
                 bullet.Color = shipColor;
-                Player player = new Player(playerTexture) {
+                Player player = new Player(playerTexture, _game.GraphicsDevice) {
                     Bullet = bullet,
                     Input = new Models.Input() {
                         Right = Keys.D,
